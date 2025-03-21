@@ -17,15 +17,15 @@
         }
 
         .invitation {
-
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
+            height: 99vh;
             text-align: center;
             background-image: url('https://www.fiestroevents.com/uploads/24/08/66b21e981eced0608241722949272.png');
             background-size: cover;
             background-position: center;
+            background-attachment: fixed;
         }
 
         .content {
@@ -66,7 +66,7 @@
             top: 0;
             left: 0;
             width: 100vw;
-            height: 100vh;
+            height: 99vh;
             z-index: 0;
             pointer-events: none;
         }
@@ -111,60 +111,60 @@
     </div>
 
     <script>
-       const canvas = document.getElementById("fireworks");
-const ctx = canvas.getContext("2d");
+        const canvas = document.getElementById("fireworks");
+        const ctx = canvas.getContext("2d");
 
-// Canvas size ko sirf ek baar set karein
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
+        // Canvas size ko sirf ek baar set karein
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
 
-class Firework {
-    constructor(x, y) {
-        this.x = x;
-        this.y = y;
-        this.size = Math.random() * 2 + 1.2;
-        this.speedX = Math.random() * 7 - 3.5;
-        this.speedY = Math.random() * 7 - 3.5;
-        this.color = `hsl(${Math.random() * 360}, 100%, 50%)`;
-        this.opacity = 3;
-    }
-    update() {
-        this.x += this.speedX;
-        this.y += this.speedY;
-        this.opacity -= 0.02;
-    }
-    draw() {
-        ctx.globalAlpha = this.opacity;
-        ctx.beginPath();
-        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 10);
-        ctx.fillStyle = this.color;
-        ctx.fill();
-    }
-}
-
-let fireworks = [];
-function createFirework() {
-    const x = Math.random() * canvas.width;
-    const y = Math.random() * canvas.height;
-    for (let i = 0; i < 30; i++) {
-        fireworks.push(new Firework(x, y));
-    }
-}
-
-function animateFireworks() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    fireworks.forEach((firework, index) => {
-        firework.update();
-        firework.draw();
-        if (firework.opacity <= 0) {
-            fireworks.splice(index, 1);
+        class Firework {
+            constructor(x, y) {
+                this.x = x;
+                this.y = y;
+                this.size = Math.random() * 2 + 1.2;
+                this.speedX = Math.random() * 7 - 3.5;
+                this.speedY = Math.random() * 7 - 3.5;
+                this.color = `hsl(${Math.random() * 360}, 100%, 50%)`;
+                this.opacity = 3;
+            }
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+                this.opacity -= 0.02;
+            }
+            draw() {
+                ctx.globalAlpha = this.opacity;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 10);
+                ctx.fillStyle = this.color;
+                ctx.fill();
+            }
         }
-    });
-    requestAnimationFrame(animateFireworks);
-}
 
-setInterval(createFirework, 700);
-animateFireworks();
+        let fireworks = [];
+        function createFirework() {
+            const x = Math.random() * canvas.width;
+            const y = Math.random() * canvas.height;
+            for (let i = 0; i < 30; i++) {
+                fireworks.push(new Firework(x, y));
+            }
+        }
+
+        function animateFireworks() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            fireworks.forEach((firework, index) => {
+                firework.update();
+                firework.draw();
+                if (firework.opacity <= 0) {
+                    fireworks.splice(index, 1);
+                }
+            });
+            requestAnimationFrame(animateFireworks);
+        }
+
+        setInterval(createFirework, 700);
+        animateFireworks();
 
     </script>
 </body>
