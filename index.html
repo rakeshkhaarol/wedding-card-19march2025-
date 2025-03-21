@@ -12,7 +12,7 @@
             margin: 0;
 
             font-family: 'Brush Script MT';
-            background-color: #1a1a2e;
+            background-color: #1f1f87;
             color: #f0e68c;
         }
 
@@ -20,7 +20,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 99vh;
+            height: 100vh;
             text-align: center;
             background-image: url('https://www.fiestroevents.com/uploads/24/08/66b21e981eced0608241722949272.png');
             background-size: cover;
@@ -66,7 +66,7 @@
             top: 0;
             left: 0;
             width: 100vw;
-            height: 99vh;
+            height: 100vh;
             z-index: 0;
             pointer-events: none;
         }
@@ -166,6 +166,12 @@
         setInterval(createFirework, 700);
         animateFireworks();
 
+        function setBodyHeight() {
+            document.body.style.height = window.innerHeight + 'px';
+        }
+
+        window.addEventListener('resize', setBodyHeight);
+        setBodyHeight();
     </script>
 </body>
 
