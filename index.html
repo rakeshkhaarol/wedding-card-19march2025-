@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Wedding Invitation</title>
-    <link rel="icon" type="image/png" href="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQL8tMMWPmdzo9rbA54XkrxfrbmHeJTPr7XGA&s">
+    <link rel="icon" type="image/png"
+        href="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQL8tMMWPmdzo9rbA54XkrxfrbmHeJTPr7XGA&s">
     <style>
         body {
             margin: 0;
@@ -13,8 +15,9 @@
             background-color: #1a1a2e;
             color: #f0e68c;
         }
+
         .invitation {
-            
+
             display: flex;
             justify-content: center;
             align-items: center;
@@ -24,6 +27,7 @@
             background-size: cover;
             background-position: center;
         }
+
         .content {
             margin-top: 80px;
             background: rgba(0, 0, 0, 0.6);
@@ -31,18 +35,23 @@
             border-radius: 20px;
             border: 2px solid gold;
         }
+
         h1 {
             font-size: 3rem;
             margin: 10px;
             color: gold;
-            font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana,
-            
+            font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana,
+
         }
-        h2, h3, p {
+
+        h2,
+        h3,
+        p {
             margin: 5px;
             font-size: 1.5rem;
             font-family: 'Dancing Script';
         }
+
         .date-box {
             display: inline-block;
             padding: 5px 20px;
@@ -51,26 +60,32 @@
             border-radius: 10px;
             font-family: 'Dancing Script';
         }
+
         canvas {
-            position: absolute;
+            position: fixed;
             top: 0;
             left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 0; /* Behind the invitation */
-            pointer-events: none; /* Click-through */
+            width: 100vw;
+            height: 100vh;
+            z-index: 0;
+            pointer-events: none;
         }
 
         @media (max-width: 600px) {
             h1 {
                 font-size: 1.8rem;
             }
-            h2, h3, p {
+
+            h2,
+            h3,
+            p {
                 font-size: 1rem;
             }
+
             .content {
                 padding: 15px;
             }
+
             .date-box {
                 padding: 3px 10px;
                 margin: 8px 0;
@@ -78,11 +93,12 @@
         }
     </style>
 </head>
+
 <body>
     <canvas id="fireworks"></canvas>
     <div class="invitation" id="fireworks">
         <div class="content">
-            <h1 >Radhika & Deepak</h1>
+            <h1>Radhika & Deepak</h1>
             <h2>Invite you to celebrate the joy of their wedding day</h2>
             <div class="date-box">
                 <span>April</span>
@@ -95,63 +111,62 @@
     </div>
 
     <script>
-        const canvas = document.getElementById("fireworks");
-        const ctx = canvas.getContext("2d");
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
+       const canvas = document.getElementById("fireworks");
+const ctx = canvas.getContext("2d");
 
-        class Firework {
-            constructor(x, y) {
-                this.x = x;
-                this.y = y;
-                this.size = Math.random() * 2 + 1.2;
-                this.speedX = Math.random() * 7 - 3.5;
-                this.speedY = Math.random() * 7 - 3.5;
-                this.color = `hsl(${Math.random() * 360}, 100%, 50%)`;
-                this.opacity = 3;
-            }
-            update() {
-                this.x += this.speedX;
-                this.y += this.speedY;
-                this.opacity -= 0.02;
-            }
-            draw() {
-                ctx.globalAlpha = this.opacity;
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 10);
-                ctx.fillStyle = this.color;
-                ctx.fill();
-            }
+// Canvas size ko sirf ek baar set karein
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+class Firework {
+    constructor(x, y) {
+        this.x = x;
+        this.y = y;
+        this.size = Math.random() * 2 + 1.2;
+        this.speedX = Math.random() * 7 - 3.5;
+        this.speedY = Math.random() * 7 - 3.5;
+        this.color = `hsl(${Math.random() * 360}, 100%, 50%)`;
+        this.opacity = 3;
+    }
+    update() {
+        this.x += this.speedX;
+        this.y += this.speedY;
+        this.opacity -= 0.02;
+    }
+    draw() {
+        ctx.globalAlpha = this.opacity;
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 10);
+        ctx.fillStyle = this.color;
+        ctx.fill();
+    }
+}
+
+let fireworks = [];
+function createFirework() {
+    const x = Math.random() * canvas.width;
+    const y = Math.random() * canvas.height;
+    for (let i = 0; i < 30; i++) {
+        fireworks.push(new Firework(x, y));
+    }
+}
+
+function animateFireworks() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    fireworks.forEach((firework, index) => {
+        firework.update();
+        firework.draw();
+        if (firework.opacity <= 0) {
+            fireworks.splice(index, 1);
         }
+    });
+    requestAnimationFrame(animateFireworks);
+}
 
-        let fireworks = [];
-        function createFirework() {
-            const x = Math.random() * canvas.width;
-            const y = Math.random() * canvas.height;
-            for (let i = 0; i < 30; i++) {
-                fireworks.push(new Firework(x, y));
-            }
-        }
+setInterval(createFirework, 700);
+animateFireworks();
 
-        function animateFireworks() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            fireworks.forEach((firework, index) => {
-                firework.update();
-                firework.draw();
-                if (firework.opacity <= 0) {
-                    fireworks.splice(index, 1);
-                }
-            });
-            requestAnimationFrame(animateFireworks);
-        }
-
-        setInterval(createFirework, 700);
-        animateFireworks();
-
-        window.addEventListener("resize", () => {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-        });
     </script>
 </body>
+
 </html>
