@@ -8,21 +8,29 @@
     <link rel="icon" type="image/png"
         href="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQL8tMMWPmdzo9rbA54XkrxfrbmHeJTPr7XGA&s">
     <style>
-        body {
+        /* body {
             margin: 0;
-
             font-family: 'Brush Script MT';
             background-color: #1f1f87;
             color: #f0e68c;
             height: 100dvh;
 
+        } */
+        body,
+        html {
+            margin: 0;
+            font-family: 'Brush Script MT';
+            background-color: #1f1f87;
+            color: #f0e68c;
+            height: 100dvh;
+            overflow: hidden;
         }
 
         .invitation {
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
+            height: 100dvh;
             text-align: center;
             background-image: url('https://www.fiestroevents.com/uploads/24/08/66b21e981eced0608241722949272.png');
             background-size: cover;
@@ -30,10 +38,11 @@
             background-attachment: fixed;
         }
 
+
         .content {
-            margin-top: 80px;
+            margin-top: 40%;
             background: rgba(0, 0, 0, 0.6);
-            padding: 0px !important;
+            padding-top: 0px;
             border-radius: 20px;
             border: 2px solid gold;
         }
